@@ -1,0 +1,9 @@
+{
+	"id": "sALKnXCvkM1RSqL",
+	"json": "{\"id\":\"sALKnXCvkM1RSqL\",\"url\":\"http://xyz.ag3nts.org\",\"loadedUrl\":\"http://xyz.ag3nts.org/\",\"uniqueKey\":\"http://xyz.ag3nts.org\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{},\"handledAt\":\"2024-11-05T19:14:40.654Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "http://xyz.ag3nts.org",
+	"url": "http://xyz.ag3nts.org"
+}
