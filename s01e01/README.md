@@ -1,5 +1,7 @@
 # s01e01
 
+## Setup
+
 To install dependencies:
 
 ```bash
@@ -10,6 +12,22 @@ To run:
 
 ```bash
 bun run src/index.ts
+# or
+bun start
 ```
 
-This project was created using `bun init` in bun v1.1.34. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## Task description
+
+Zaloguj się do systemu robotów pod adresem xyz.ag3nts.org. Zdobyliśmy login i hasło do systemu (tester / 574e112a). Problemem jednak jest ich system ‘anty-captcha’, który musisz spróbować obejść.Musisz jedynie zautomatyzować proces odpowiadania na pytnie zawarte w formularzu. Przy okazji zaloguj się proszę w naszej centrali (centrala.ag3nts.org). Tam też możesz zgłosić wszystkie znalezione do tej pory flagi. Nie analizuj jeszcze pamięci robota, którą przechwycisz. Zostawmy sobie to na jutro.
+
+**Co musisz zrobić w zadaniu?**
+
+1. Zbadaj formularz logowania do podanej wyżej strony (XYZ) i zauważ, że wysyłane są tam trzy zmienne metodą POST: username, password oraz answer. Zawartość dwóch pierwszych już znasz. Trzecia wymaga uzupełnienia
+
+2. Napisz prostą aplikację, która pobiera aktualne pytanie wyświetlane na stronie (zmienia się ono co 7 sekund)
+
+3. Wyślij to pytanie do wybranego LLM-a i pobierz odpowiedź
+
+4. Wyślij trzy zmienne z pkt #1 do strony XYZ, uzupełniając pole answer odpowiedzią z LLM-a
+
+5. Odczytaj odpowiedź serwera. Będzie tam podany adres URL do tajnej podstrony. Przejdź tam.

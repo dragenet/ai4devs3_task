@@ -5,8 +5,8 @@ const env = validateEnv();
 export const config = {
     openai: {
         apiKey: env.OPENAI_API_KEY,
-        model: 'gpt-4o',
-        maxTokens: 1000,
+        model: 'gpt-4o-mini',
+        maxTokens: 4,
         temperature: 0,
     },
     scraping: {

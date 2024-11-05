@@ -1,12 +1,18 @@
 import { OpenAIService } from './openai.service';
 import { yearResponseSchema } from '../schemas/model.schema';
-import type { ScrapedData, ProcessedData } from '../types';
 
 export class AnswerService {
     constructor(private readonly openaiService: OpenAIService) {}
 
-    async processAnswer(data: ScrapedData, userQuery: string) {
-        const modelResponse = await this.openaiService.complete(data, userQuery);
+    async processAnswer(query: string) {
+        const modelResponse = await this.openaiService.complete(query);
+
+        console.log('Model response:', modelResponse);
+        
+        if (modelResponse === '-1') {
+            throw new Error('Unable to determine the year for the given query');
+        }
+        
         const validatedYear = yearResponseSchema.parse(modelResponse);
         
         return {
