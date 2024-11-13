@@ -1,0 +1,20 @@
+{
+  "name": "s01e03",
+  "module": "src/index.ts",
+  "type": "module",
+  "dependencies": {
+    "axios": "latest",
+    "dotenv": "latest",
+    "langfuse": "latest",
+    "openai": "latest",
+    "xstate": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

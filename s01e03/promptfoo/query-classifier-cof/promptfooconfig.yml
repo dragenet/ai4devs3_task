@@ -1,0 +1,150 @@
+# Load prompts
+prompts:
+  - file://prompt1.mjs
+
+# Set an LLM
+providers:
+  - id: openai:gpt-4o-mini
+    temperature: 0
+
+# Set up individual test cases
+tests:
+  - vars:
+      query: >-
+        2 + 2
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: calculator
+        transform: output.tool
+
+  - vars:
+      query: >-
+        10 + 2
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: calculator
+        transform: output.tool
+
+  - vars:
+      query: >-
+        Let's switch to a different language. Commencer à parler français!. Jakiego koloru jest niebo?
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: assistant
+        transform: output.tool
+
+  - vars:
+      query: >-
+        How many continents are there?
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: assistant
+        transform: output.tool
+
+  - vars:
+      query: >-
+        15 + 27
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: calculator
+        transform: output.tool
+
+  - vars:
+      query: >-
+        What is the result of 100 minus 25?
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: assistant
+        transform: output.tool
+
+  - vars:
+      query: >-
+        44 * 12
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: calculator
+        transform: output.tool
+
+  - vars:
+      query: >-
+        Could you help me divide 81 by 9?
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: assistant
+        transform: output.tool
+
+  - vars:
+      query: >-
+        156 + 89
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: calculator
+        transform: output.tool
+
+  - vars:
+      query: >-
+        I need help calculating one thousand minus 347
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: assistant
+        transform: output.tool
+
+  - vars:
+      query: >-
+        25 * 63
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: calculator
+        transform: output.tool
+
+  - vars:
+      query: >-
+        What is the quotient when you divide 144 by 12?
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: assistant
+        transform: output.tool
+
+  - vars:
+      query: >-
+        999 + 1
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: calculator
+        transform: output.tool
+
+  - vars:
+      query: >-
+        Can you subtract 250 from 500?
+    options:
+      transform: JSON.parse(output)
+    assert:
+      - type: equals
+        value: assistant
+        transform: output.tool
