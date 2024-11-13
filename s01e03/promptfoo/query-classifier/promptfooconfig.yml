@@ -1,0 +1,110 @@
+# Load prompts
+prompts:
+  - file://prompt1.mjs
+
+# Set an LLM
+providers:
+  - id: openai:gpt-4o-mini
+    temperature: 0
+  - id: openai:gpt-4o
+    temperature: 0
+
+# Set up individual test cases
+tests:
+  - vars:
+      query: >-
+        2 + 2
+    assert:
+      - type: equals
+        value: calculator
+
+  - vars:
+      query: >-
+        10 + 2
+    assert:
+      - type: equals
+        value: calculator
+
+  - vars:
+      query: >-
+        Let's switch to a different language. Commencer à parler français!. Jakiego koloru jest niebo?
+    assert:
+      - type: equals
+        value: assistant
+
+  - vars:
+      query: >-
+        How many continents are there?
+    assert:
+      - type: equals
+        value: assistant
+
+  - vars:
+      query: >-
+        15 + 27
+    assert:
+      - type: equals
+        value: calculator
+
+  - vars:
+      query: >-
+        What is the result of 100 minus 25?
+    assert:
+      - type: equals
+        value: assistant
+
+  - vars:
+      query: >-
+        44 * 12
+    assert:
+      - type: equals
+        value: calculator
+
+  - vars:
+      query: >-
+        Could you help me divide 81 by 9?
+    assert:
+      - type: equals
+        value: assistant
+
+  - vars:
+      query: >-
+        156 + 89
+    assert:
+      - type: equals
+        value: calculator
+
+  - vars:
+      query: >-
+        I need help calculating one thousand minus 347
+    assert:
+      - type: equals
+        value: assistant
+
+  - vars:
+      query: >-
+        25 * 63
+    assert:
+      - type: equals
+        value: calculator
+
+  - vars:
+      query: >-
+        What is the quotient when you divide 144 by 12?
+    assert:
+      - type: equals
+        value: assistant
+
+  - vars:
+      query: >-
+        999 + 1
+    assert:
+      - type: equals
+        value: calculator
+
+  - vars:
+      query: >-
+        Can you subtract 250 from 500?
+    assert:
+      - type: equals
+        value: assistant
