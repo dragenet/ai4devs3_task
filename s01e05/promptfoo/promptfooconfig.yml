@@ -1,0 +1,74 @@
+# Load prompts
+prompts:
+  - file://prompts/prompt1.mjs
+
+# Set an LLM
+providers:
+  - id: openai:gpt-4o
+    config:
+      temperature: 0
+  - id: openai:gpt-4o-mini
+    config:
+      temperature: 0
+  - id: openrouter:meta-llama/llama-3.1-8b-instruct:free
+    config:
+      temperature: 0
+
+# Set up individual test cases
+tests:
+  - vars:
+      query: >-
+        Osoba podejrzana to Andrzej Mazur. Adres: Gdańsk, ul. Długa 8. Wiek: 29 lat.
+    assert:
+      - type: equals
+        transform: JSON.parse(output).result
+        value: >-
+          Osoba podejrzana to CENZURA. Adres: CENZURA, ul. CENZURA. Wiek: CENZURA lat.
+  - vars:
+      query: >-
+        Podejrzany nazywa się Tomasz Kaczmarek. Jest zameldowany w Poznaniu, ul. Konwaliowa 18. Ma 25 lat.
+    assert:
+      - type: equals
+        transform: JSON.parse(output).result
+        value: >-
+          Podejrzany nazywa się CENZURA. Jest zameldowany w CENZURA, ul. CENZURA. Ma CENZURA lat.
+  - vars:
+      query: >-
+        Sprawdzana osoba: Jan Kowalski, zamieszkały we Wrocławiu przy ul. Słonecznej 45. Lat 34.
+    assert:
+      - type: equals
+        transform: JSON.parse(output).result
+        value: >-
+          Sprawdzana osoba: CENZURA, zamieszkały we CENZURA przy ul. CENZURA. Lat CENZURA.
+  - vars:
+      query: >-
+        Według danych Adam Nowak (32 l.) przebywa w Krakowie na ul. Floriańskiej 12.
+    assert:
+      - type: equals
+        transform: JSON.parse(output).result
+        value: >-
+          Według danych CENZURA (CENZURA l.) przebywa w CENZURA na ul. CENZURA.
+  - vars:
+      query: >-
+        Piotr Wiśniewski, lat 28, mieszka w Warszawie przy ulicy Marszałkowskiej 126.
+    assert:
+      - type: equals
+        transform: JSON.parse(output).result
+        value: >-
+          CENZURA, lat CENZURA, mieszka w CENZURA przy ulicy CENZURA.
+  - vars:
+      query: >-
+        Osoba: Marek Zieliński, wiek 42 lata, adres zamieszkania: Łódź, ul. Piotrkowska 89.
+    assert:
+      - type: equals
+        transform: JSON.parse(output).result
+        value: >-
+          Osoba: CENZURA, wiek CENZURA lata, adres zamieszkania: CENZURA, ul. CENZURA.
+  - vars:
+      query: >-
+        Mieszkaniec Szczecina Michał Lewandowski (39 lat) przebywa na ul. Wojska Polskiego 234.
+    assert:
+      - type: equals
+        transform: JSON.parse(output).result
+        value: >-
+          Mieszkaniec CENZURA (CENZURA lat) przebywa na ul. CENZURA.
