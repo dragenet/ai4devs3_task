@@ -1,23 +1,33 @@
-import { readdir, readFile, stat, writeFile } from 'node:fs/promises';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, readdir, readFile, stat, unlink, writeFile } from 'node:fs/promises';
 import type { ParsedPath } from 'node:path';
-import { join, parse, relative, resolve } from 'node:path';
-import { dirname } from 'node:path';
+import { dirname, isAbsolute, join, parse, relative } from 'node:path';
 
 import type { FileInfo } from './file.types';
 
 export class FileService {
-  private basePath: string;
+  public readonly basePath: string;
 
   constructor(basePath?: string) {
-    this.basePath = basePath ? resolve(basePath) : process.cwd();
+    // First set basePath to cwd as temporary value
+    this.basePath = process.cwd();
+    // Then resolve the provided path if any
+    if (basePath) {
+      this.basePath = this.resolvePath(basePath);
+    }
+  }
+
+  /**
+   * Resolves path considering both absolute and relative paths
+   */
+  public resolvePath(path: string): string {
+    return isAbsolute(path) ? path : join(this.basePath, path);
   }
 
   /**
    * Gets list of files in directory with their details
    */
   async getFilesList(directory = ''): Promise<FileInfo[]> {
-    const absolutePath = join(this.basePath, directory);
+    const absolutePath = this.resolvePath(directory);
     const files = await readdir(absolutePath);
 
     const fileInfos = await Promise.all(
@@ -35,7 +45,7 @@ export class FileService {
           absolutePath: filePath,
           fullName: file,
           name: parsed.name,
-          extension: parsed.ext.slice(1), // Remove the dot
+          extension: parsed.ext.slice(1),
           size: stats.size,
         };
       }),
@@ -48,7 +58,7 @@ export class FileService {
    * Reads file content
    */
   async readFile(path: string): Promise<File> {
-    const absolutePath = join(this.basePath, path);
+    const absolutePath = this.resolvePath(path);
     const fileBuffer = await readFile(absolutePath);
     return new File([fileBuffer], path);
   }
@@ -58,27 +68,37 @@ export class FileService {
    * @returns FileInfo object about the freshly created file
    */
   async saveFile(path: string, content: string | Buffer): Promise<FileInfo> {
-    const absolutePath = join(this.basePath, path);
+    const absolutePath = this.resolvePath(path);
 
     // Create directory structure if it doesn't exist
-    this.makeDir(dirname(absolutePath));
+    await this.makeDir(dirname(absolutePath));
 
     await writeFile(absolutePath, content, 'utf-8');
 
     const parsed: ParsedPath = parse(path);
-    const stats = await stat(absolutePath); // Get file stats to retrieve size
+    const stats = await stat(absolutePath);
 
     return {
       relativePath: relative(this.basePath, absolutePath),
       absolutePath,
       fullName: path,
       name: parsed.name,
-      extension: parsed.ext.slice(1), // Remove the dot
-      size: stats.size, // Size in bytes
+      extension: parsed.ext.slice(1),
+      size: stats.size,
     };
   }
 
   async makeDir(path: string): Promise<void> {
-    await mkdir(path, { recursive: true });
+    const absolutePath = this.resolvePath(path);
+    await mkdir(absolutePath, { recursive: true });
+  }
+
+  /**
+   * Deletes a file at the given path
+   * @throws if file doesn't exist or cannot be deleted
+   */
+  async deleteFile(path: string): Promise<void> {
+    const absolutePath = this.resolvePath(path);
+    await unlink(absolutePath);
   }
 }
