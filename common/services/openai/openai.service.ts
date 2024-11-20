@@ -23,8 +23,12 @@ export class OpenAIService {
     }
 
     const chatCompletion = await this.openai.chat.completions.create({
-      ...DEFAULT_OPENAI_COMPLETION_MODEL_CONFIG,
-      ...modelOptions,
+      ...{
+        ...DEFAULT_OPENAI_COMPLETION_MODEL_CONFIG,
+        ...modelOptions,
+        json: undefined,
+        jsonSchema: undefined,
+      },
       messages,
       response_format: modelOptions?.json
         ? modelOptions?.jsonSchema
