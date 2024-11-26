@@ -40,6 +40,7 @@ export class OpenAIService {
     const content = chatCompletion.choices[0].message.content;
 
     if (!content) {
+      console.log(chatCompletion);
       throw new Error('No content in response');
     }
 
