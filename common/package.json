@@ -5,9 +5,9 @@
     "@types/bun": "latest"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "openai": "^4.73.1"
   },
   "dependencies": {
-    "openai": "^4.72.0"
   }
 }
