@@ -13,7 +13,7 @@ export interface OpenAICompletionOptionsWithoutJsonSchema extends OpenAIBaseComp
 
 export interface OpenAICompletionOptionsWithJsonSchema extends OpenAIBaseCompletionOptions {
   readonly json: true;
-  readonly jsonSchema?: ResponseFormatJSONSchema.JSONSchema;
+  readonly jsonSchema?: ResponseFormatJSONSchema;
 }
 
 export type OpenAICompletionOptions =
@@ -28,3 +28,6 @@ export type OpenAITranscriptionOptions = Omit<
 
 // Image generation model types
 export type OpenAIImageGenerationOptions = Omit<OpenAI.Images.ImageGenerateParams, 'prompt' | 'n'>;
+
+// Embedding model types
+export type OpenAIEmbeddingOptions = Omit<OpenAI.Embeddings.EmbeddingCreateParams, 'input'>;
