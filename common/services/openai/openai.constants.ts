@@ -1,5 +1,6 @@
 import type {
   OpenAICompletionOptions,
+  OpenAIEmbeddingOptions,
   OpenAIImageGenerationOptions,
   OpenAITranscriptionOptions,
 } from './openai.types';
@@ -35,4 +36,9 @@ export const SUPPORTED_TRANSCRIPTION_FILE_EXTENSIONS = [
 export const DEFAULT_OPENAI_IMAGE_GENERATION_MODEL_CONFIG: OpenAIImageGenerationOptions = {
   model: 'dall-e-3',
   size: '1024x1024',
+};
+
+// Embedding model config
+export const DEFAULT_OPENAI_EMBEDDING_MODEL_CONFIG: OpenAIEmbeddingOptions = {
+  model: 'text-embedding-3-large',
 };

@@ -6,8 +6,11 @@
   },
   "peerDependencies": {
     "typescript": "^5.0.0",
-    "openai": "^4.73.1"
+    "openai": "4.76.0"
   },
   "dependencies": {
+    "@microsoft/tiktokenizer": "^1.0.9",
+    "@qdrant/js-client-rest": "^1.12.0",
+    "uuid": "^11.0.3"
   }
 }
